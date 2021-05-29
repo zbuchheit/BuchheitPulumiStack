@@ -1,3 +1,7 @@
 config:
+  BuchheitHistory:resourceGroupInstance: "1"
+  BuchheitHistory:storageAccountInstance: "1"
+  BuchheitHistory:appName: BuchheitHistory
+  BuchheitHistory:env: dev
   azure-native:location: WestUS
   pulumi:template: azure-typescript

@@ -1,18 +1,17 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as resources from "@pulumi/azure-native/resources";
 import * as storage from "@pulumi/azure-native/storage";
+import {createResourceGroup} from "./helper-methods/resource-group-method"
+import {createStorageAccount} from "./helper-methods/storage-account-method"
+import { NamingStandard } from "./helper-methods/naming-methods";
+
+const namingStandard = new NamingStandard();
 
 // Create an Azure Resource Group
-const resourceGroup = new resources.ResourceGroup("resourceGroup");
+const resourceGroup = createResourceGroup(namingStandard)
 
 // Create an Azure resource (Storage Account)
-const storageAccount = new storage.StorageAccount("sa", {
-    resourceGroupName: resourceGroup.name,
-    sku: {
-        name: storage.SkuName.Standard_LRS,
-    },
-    kind: storage.Kind.StorageV2,
-});
+const storageAccount = createStorageAccount(namingStandard, resourceGroup);
 
 // Export the primary key of the Storage Account
 const storageAccountKeys = pulumi.all([resourceGroup.name, storageAccount.name]).apply(([resourceGroupName, accountName]) =>
