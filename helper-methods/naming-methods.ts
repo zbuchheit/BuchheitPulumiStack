@@ -24,9 +24,13 @@ export class NamingStandard {
     private BuildStorageAccountString() {
         return `st${this.storageNamingString}${RESOURCE_CONFIG.storageAccountInstance}`
     }
-    private BuildWebAppString(name: string) {
-        return `app-${this.namingString}-${name}-${RESOURCE_CONFIG.webAppInstance}`
+    private BuildAppServicePlanString(aspName: string) {
+        return `asp-${this.namingString}-${aspName}`
     }
+    private BuildWebAppString(appName: string) {
+        return `app-${this.namingString}-${appName}-${RESOURCE_CONFIG.webAppInstance}`
+    }
+    
 
     ResourceGroup(): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildResourceGroupString()}`
@@ -40,6 +44,13 @@ export class NamingStandard {
     }
     PulumiStorageAccount(): string {
         return `${this.pulumiPrefix}${this.BuildStorageAccountString()}`
+    }
+
+    AppServicePlan(name: string): pulumi.Output<string> {
+        return pulumi.interpolate`${this.BuildAppServicePlanString(name)}`
+    }
+    PulumiAppServicePlan(name: string): string {
+        return `${this.pulumiPrefix}${this.BuildAppServicePlanString(name)}`
     }
 
     WebApp(name: string): pulumi.Output<string> {

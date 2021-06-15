@@ -3,7 +3,7 @@ import * as resources from "@pulumi/azure-native/resources";
 import * as storage from "@pulumi/azure-native/storage";
 import {createResourceGroup} from "./helper-methods/resource-group-method"
 import {createStorageAccount} from "./helper-methods/storage-account-method"
-import { createAppService } from "./helper-methods/app-service-method";
+import { createAppServicePlan, createWebApp } from "./helper-methods/app-service-method";
 import { NamingStandard } from "./helper-methods/naming-methods";
 
 
@@ -13,13 +13,14 @@ const namingStandard = new NamingStandard();
 const resourceGroup = createResourceGroup(namingStandard)
 
 // Create an Azure resource (Storage Account)
-const storageAccount = createStorageAccount(namingStandard, resourceGroup);
+//const storageAccount = createStorageAccount(namingStandard, resourceGroup);
 
-const appService = createAppService(namingStandard, resourceGroup, 'website');
+const appServicePlan = createAppServicePlan(namingStandard, resourceGroup, 'buchheithistory')
+const appService = createWebApp(namingStandard, resourceGroup, appServicePlan, 'webclient');
 
 // Export the primary key of the Storage Account
-const storageAccountKeys = pulumi.all([resourceGroup.name, storageAccount.name]).apply(([resourceGroupName, accountName]) =>
-    storage.listStorageAccountKeys({ resourceGroupName, accountName }));
-export const primaryStorageKey = storageAccountKeys.keys[0].value;
+// const storageAccountKeys = pulumi.all([resourceGroup.name, storageAccount.name]).apply(([resourceGroupName, accountName]) =>
+//     storage.listStorageAccountKeys({ resourceGroupName, accountName }));
+// export const primaryStorageKey = storageAccountKeys.keys[0].value;
 
 

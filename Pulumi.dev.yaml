@@ -1,4 +1,7 @@
 config:
+  BuchheitHistory:aspTier: Free
+  BuchheitHistory:aspSize: F1
+  BuchheitHistory:aspCapacity: 1
   BuchheitHistory:resourceGroupInstance: "1"
   BuchheitHistory:storageAccountInstance: "1"
   BuchheitHistory:webAppInstance: "1"
