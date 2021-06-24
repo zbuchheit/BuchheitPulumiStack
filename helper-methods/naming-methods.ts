@@ -15,30 +15,30 @@ export class NamingStandard {
         this.environment = RESOURCE_CONFIG.env;
         this.appNameEnvironmentString = `${this.appName}-${this.environment}`;
         this.storageAppNameEnvironmentString = `${this.appName}${this.environment}`;
-        this.pulumiPrefix = `pulumi-`
-    }
+        this.pulumiPrefix = `pulumi-`;
+    };
 
     private BuildResourceGroupString() {
         return `rg-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}`;
-    }
+    };
     private BuildElasticPoolString(name: string) {
         return `ep-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}-${name}`;
-    }
+    };
     private BuildStorageAccountString() {
         return `st${this.storageAppNameEnvironmentString}${RESOURCE_CONFIG.storageAccountInstance}`;
-    }
+    };
     private BuildAppServicePlanString(name: string) {
         return `asp-${this.appNameEnvironmentString}-${name}`;
-    }
+    };
     private BuildSqlServerString(name: string) {
         return `sql-${this.appNameEnvironmentString}-${name}`;
-    }
+    };
     private BuildSqlDatabaseString(sqlDatabaseName: string): any {
         return `sqldb-${this.appNameEnvironmentString}-${sqlDatabaseName}`;
-    }
+    };
     private BuildWebAppString(appName: string) {
         return `app-${this.appNameEnvironmentString}-${appName}-${RESOURCE_CONFIG.webAppInstance}`;
-    }
+    };
     
 
     ResourceGroup(): pulumi.Output<string> {
@@ -57,36 +57,36 @@ export class NamingStandard {
 
     StorageAccount(): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildStorageAccountString()}`
-    }
+    };
     PulumiStorageAccount(): string {
         return `${this.pulumiPrefix}${this.BuildStorageAccountString()}`
-    }
+    };
 
     AppServicePlan(name: string): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildAppServicePlanString(name)}`
-    }
+    };
     PulumiAppServicePlan(name: string): string {
         return `${this.pulumiPrefix}${this.BuildAppServicePlanString(name)}`
-    }
+    };
 
     SqlServer(name: string): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildSqlServerString(name)}`
-    }
+    };
     PulumiSqlServer(name: string): string {
         return `${this.pulumiPrefix}${this.BuildSqlServerString(name)}`
-    }
+    };
 
     SqlDatabase(name: string): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildSqlDatabaseString(name)}`
-    }
+    };
     PulumiSqlDatabase(name: string): string {
         return `${this.pulumiPrefix}${this.BuildSqlDatabaseString(name)}`
-    }
+    };
 
     WebApp(name: string): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildWebAppString(name)}`
-    }
+    };
     PulumiWebApp(name: string): string {
         return `${this.pulumiPrefix}${this.BuildWebAppString(name)}`
-    }
-}
+    };
+};
