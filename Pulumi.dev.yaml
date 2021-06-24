@@ -1,11 +1,22 @@
 config:
-  BuchheitHistory:aspTier: Free
+  BuchheitHistory:appName: buchheithistory
+  BuchheitHistory:aspCapacity: "1"
   BuchheitHistory:aspSize: F1
-  BuchheitHistory:aspCapacity: 1
+  BuchheitHistory:aspTier: Free
+  BuchheitHistory:env: dev
   BuchheitHistory:resourceGroupInstance: "1"
   BuchheitHistory:storageAccountInstance: "1"
   BuchheitHistory:webAppInstance: "1"
-  BuchheitHistory:appName: buchheithistory
-  BuchheitHistory:env: dev
+  BuchheitHistory:sqlSettings: 
+    sku:
+      name: GP_Gen5
+      tier: GeneralPurpose
+      family: Gen5
+      capacity: 2
+    perDatabaseSettings:
+      minCapacity: 0
+      maxCapacity: 2
+  azure-native:appName: BuchheitHistory
+  azure-native:env: Dev
   azure-native:location: WestUS
   pulumi:template: azure-typescript

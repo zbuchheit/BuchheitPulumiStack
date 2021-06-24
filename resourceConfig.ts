@@ -4,6 +4,7 @@ import * as pulumi from "@pulumi/pulumi";
 export class ResourceConfig {
     configs: {
         project: pulumi.Config,
+        azure: pulumi.Config
     }
     appName: string;
     env: string;
@@ -14,11 +15,14 @@ export class ResourceConfig {
     aspTier: string;
     aspSize: string;
     aspCapacity: number;
+    sqlSettings: any;
 
-    constructor(project: pulumi.Config)
+    constructor(project: pulumi.Config,
+        azure: pulumi.Config)
     {
     this.configs = {
         project: project,
+        azure: azure,
     }
     this.appName = project.require('appName');
     this.env = project.require('env');
@@ -29,6 +33,7 @@ export class ResourceConfig {
         app: this.appName,
         env: this.env,
     }
+    this.sqlSettings = project.require('sqlSettings')
     this.aspTier = project.require('aspTier')
     this.aspSize = project.require('aspSize')
     this.aspCapacity = project.requireNumber('aspCapacity')

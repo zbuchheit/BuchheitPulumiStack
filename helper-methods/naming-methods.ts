@@ -6,38 +6,54 @@ export class NamingStandard {
 
     private appName: pulumi.Input<string>;
     private environment: string;
-    private namingString: string;
-    private storageNamingString: string;
+    private appNameEnvironmentString: string;
+    private storageAppNameEnvironmentString: string;
     private pulumiPrefix: string;
 
     constructor() {
         this.appName = RESOURCE_CONFIG.appName;
         this.environment = RESOURCE_CONFIG.env;
-        this.namingString = `${this.appName}-${this.environment}`;
-        this.storageNamingString = `${this.appName}${this.environment}`;
+        this.appNameEnvironmentString = `${this.appName}-${this.environment}`;
+        this.storageAppNameEnvironmentString = `${this.appName}${this.environment}`;
         this.pulumiPrefix = `pulumi-`
     }
 
     private BuildResourceGroupString() {
-        return `rg-${this.namingString}-${RESOURCE_CONFIG.resourceGroupInstance}`
+        return `rg-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}`;
+    }
+    private BuildElasticPoolString(elasticPoolName: string) {
+        return `ep-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}-${elasticPoolName}`;
     }
     private BuildStorageAccountString() {
-        return `st${this.storageNamingString}${RESOURCE_CONFIG.storageAccountInstance}`
+        return `st${this.storageAppNameEnvironmentString}${RESOURCE_CONFIG.storageAccountInstance}`;
     }
     private BuildAppServicePlanString(aspName: string) {
-        return `asp-${this.namingString}-${aspName}`
+        return `asp-${this.appNameEnvironmentString}-${aspName}`;
+    }
+    private BuildSqlServerString(sqlServerName: string) {
+        return `sql-${this.appNameEnvironmentString}-${sqlServerName}`;
+    }
+    private BuildSqlDatabaseString(sqlDatabaseName: string): any {
+        return `sqldb-${this.appNameEnvironmentString}-${sqlDatabaseName}`;
     }
     private BuildWebAppString(appName: string) {
-        return `app-${this.namingString}-${appName}-${RESOURCE_CONFIG.webAppInstance}`
+        return `app-${this.appNameEnvironmentString}-${appName}-${RESOURCE_CONFIG.webAppInstance}`;
     }
     
 
     ResourceGroup(): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildResourceGroupString()}`
-    }
-    PulumiResourceGroup() {
+    };
+    PulumiResourceGroup(): string {
         return `${this.pulumiPrefix}${this.BuildResourceGroupString()}`
-    }
+    };
+
+    ElasticPool(name: string): pulumi.Output<string> {
+        return pulumi.interpolate`${this.BuildElasticPoolString(name)}`
+    };
+    PulumiElasticPool(name: string) {
+        return `${this.pulumiPrefix}${this.BuildElasticPoolString(name)}`
+    };
 
     StorageAccount(): pulumi.Output<string> {
         return pulumi.interpolate`${this.BuildStorageAccountString()}`
@@ -51,6 +67,20 @@ export class NamingStandard {
     }
     PulumiAppServicePlan(name: string): string {
         return `${this.pulumiPrefix}${this.BuildAppServicePlanString(name)}`
+    }
+
+    SqlServer(name: string): pulumi.Output<string> {
+        return pulumi.interpolate`${this.BuildSqlServerString(name)}`
+    }
+    PulumiSqlServer(name: string): string {
+        return `${this.pulumiPrefix}${this.BuildSqlServerString(name)}`
+    }
+
+    SqlDatabase(name: string): pulumi.Output<string> {
+        return pulumi.interpolate`${this.BuildSqlDatabaseString(name)}`
+    }
+    PulumiSqlDatabase(name: string): string {
+        return `${this.pulumiPrefix}${this.BuildSqlDatabaseString(name)}`
     }
 
     WebApp(name: string): pulumi.Output<string> {
