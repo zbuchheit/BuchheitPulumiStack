@@ -21,17 +21,17 @@ export class NamingStandard {
     private BuildResourceGroupString() {
         return `rg-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}`;
     }
-    private BuildElasticPoolString(elasticPoolName: string) {
-        return `ep-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}-${elasticPoolName}`;
+    private BuildElasticPoolString(name: string) {
+        return `ep-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}-${name}`;
     }
     private BuildStorageAccountString() {
         return `st${this.storageAppNameEnvironmentString}${RESOURCE_CONFIG.storageAccountInstance}`;
     }
-    private BuildAppServicePlanString(aspName: string) {
-        return `asp-${this.appNameEnvironmentString}-${aspName}`;
+    private BuildAppServicePlanString(name: string) {
+        return `asp-${this.appNameEnvironmentString}-${name}`;
     }
-    private BuildSqlServerString(sqlServerName: string) {
-        return `sql-${this.appNameEnvironmentString}-${sqlServerName}`;
+    private BuildSqlServerString(name: string) {
+        return `sql-${this.appNameEnvironmentString}-${name}`;
     }
     private BuildSqlDatabaseString(sqlDatabaseName: string): any {
         return `sqldb-${this.appNameEnvironmentString}-${sqlDatabaseName}`;
