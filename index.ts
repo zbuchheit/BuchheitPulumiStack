@@ -14,14 +14,14 @@ const namingStandard = new NamingStandard();
 const resourceGroup = createResourceGroup(namingStandard)
 
 // Create an Azure resource (Storage Account)
-//const storageAccount = createStorageAccount(namingStandard, resourceGroup);
+const storageAccount = createStorageAccount(namingStandard, resourceGroup);
 
 const appServicePlan = createAppServicePlan(namingStandard, resourceGroup, 'buchheithistory')
 const appService = createWebApp(namingStandard, resourceGroup, appServicePlan, 'webclient');
 const sqlServer = createSqlServer(namingStandard, resourceGroup, 'buchheithistorysql');
-for (let i=1; i<4; i++){
-createSqlDatabase(namingStandard, resourceGroup, sqlServer, `DB${i}`);
-}
+// for (let i=1; i<4; i++){
+// createSqlDatabase(namingStandard, resourceGroup, sqlServer, `DB${i}`);
+// }
 
 
 // Export the primary key of the Storage Account
