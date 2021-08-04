@@ -1,0 +1,6 @@
+enum Resource {
+    APPSERVICE,
+    RESOURCEGROUP,
+    SQLSERVER,
+    STORAGEACCOUNT
+}
