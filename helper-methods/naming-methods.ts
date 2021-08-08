@@ -1,31 +1,37 @@
+import { SpringCloudAppRedisAssociation } from "@pulumi/azure/appplatform";
 import * as pulumi from "@pulumi/pulumi";
-import { RESOURCE_CONFIG } from "../constants/config-const";
+import { AzureFactory } from "../azure-factory/azure-factory";
 
 
-export class NamingStandard {
+export class NamingStandard extends AzureFactory {
 
-    private appName: pulumi.Input<string>;
-    private environment: string;
+    private static instance: NamingStandard;
     private appNameEnvironmentString: string;
     private storageAppNameEnvironmentString: string;
     private pulumiPrefix: string;
 
     constructor() {
-        this.appName = RESOURCE_CONFIG.appName;
-        this.environment = RESOURCE_CONFIG.env;
-        this.appNameEnvironmentString = `${this.appName}-${this.environment}`;
-        this.storageAppNameEnvironmentString = `${this.appName}${this.environment}`;
+        super();
+        this.appNameEnvironmentString = `${this.appName}-${this.env}`;
+        this.storageAppNameEnvironmentString = `${this.appName}${this.env}`;
         this.pulumiPrefix = `pulumi-`;
     };
 
+    public static getInstance(){
+        if (!NamingStandard.instance){
+            NamingStandard.instance = new NamingStandard();
+        }
+        return NamingStandard.instance;
+    }
+
     private BuildResourceGroupString() {
-        return `rg-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}`;
+        return `rg-${this.appNameEnvironmentString}-${this.resourceGroupInstance}`;
     };
     private BuildElasticPoolString(name: string) {
-        return `ep-${this.appNameEnvironmentString}-${RESOURCE_CONFIG.resourceGroupInstance}-${name}`;
+        return `ep-${this.appNameEnvironmentString}-${this.resourceGroupInstance}-${name}`;
     };
     private BuildStorageAccountString() {
-        return `st${this.storageAppNameEnvironmentString}${RESOURCE_CONFIG.storageAccountInstance}`;
+        return `st${this.storageAppNameEnvironmentString}${this.storageAccountInstance}`;
     };
     private BuildAppServicePlanString(name: string) {
         return `asp-${this.appNameEnvironmentString}-${name}`;
@@ -37,7 +43,7 @@ export class NamingStandard {
         return `sqldb-${this.appNameEnvironmentString}-${sqlDatabaseName}`;
     };
     private BuildWebAppString(appName: string) {
-        return `app-${this.appNameEnvironmentString}-${appName}-${RESOURCE_CONFIG.webAppInstance}`;
+        return `app-${this.appNameEnvironmentString}-${appName}-${this.webAppInstance}`;
     };
     
 

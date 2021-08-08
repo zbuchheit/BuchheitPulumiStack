@@ -1,0 +1,12 @@
+export enum ResourceName {
+    APPSERVICE,
+    APPSERVICEPLAN,
+    RESOURCEGROUP,
+    SQLSERVER,
+    STORAGEACCOUNT,
+}
+export enum ResourceType {
+    APPSERVICE,
+    APPSERVICEPLAN,
+    STORAGEACCOUNT,
+}
