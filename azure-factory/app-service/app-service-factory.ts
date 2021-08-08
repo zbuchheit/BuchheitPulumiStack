@@ -1,5 +1,5 @@
 import { resources } from "@pulumi/azure-native";
-import { AppServicePlan, WebApp } from "@pulumi/azure-native/web";
+import { AppServicePlan } from "@pulumi/azure-native/web";
 import { AzureFactory } from "../azure-factory";
 import * as pulumi from "@pulumi/pulumi";
 import { NamingStandard } from "../../helper-methods/naming-methods";

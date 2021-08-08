@@ -1,4 +1,3 @@
-import { SpringCloudAppRedisAssociation } from "@pulumi/azure/appplatform";
 import * as pulumi from "@pulumi/pulumi";
 import { AzureFactory } from "../azure-factory/azure-factory";
 
